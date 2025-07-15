@@ -10,8 +10,10 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  IconButton,
 } from "@mui/material";
 import CoffeeIcon from "@mui/icons-material/Coffee";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useMediaQuery, useTheme, Drawer } from "@mui/material";
 
 const Navbar = () => {
@@ -46,12 +48,21 @@ const Navbar = () => {
             >
               Coffee Shop
             </Typography>
-            <Button color="inherit" href="#home">
-              Home
-            </Button>
-            <Button color="inherit" href="#coffee">
-              Coffee
-            </Button>
+            {isMobile && (
+              <IconButton color="inherit" onClick={toggleDrawer(true)}>
+                <MenuIcon />
+              </IconButton>
+            )}
+            {!isMobile && (
+              <>
+                <Button color="inherit" href="#home">
+                  Home
+                </Button>
+                <Button color="inherit" href="#coffee">
+                  Coffee
+                </Button>
+              </>
+            )}
           </Toolbar>
         </Container>
       </AppBar>
