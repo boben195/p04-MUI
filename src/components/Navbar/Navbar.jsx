@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Container,
+  Button,
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 import CoffeeIcon from "@mui/icons-material/Coffee";
-import Button from "@mui/material/Button";
-import { useMediaQuery, useTheme } from "@mui/material";
+import { useMediaQuery, useTheme, Drawer } from "@mui/material";
 
 const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -15,6 +22,17 @@ const Navbar = () => {
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
   };
+
+  const drawerLinks = [
+    {
+      text: "Home",
+      link: "#home",
+    },
+    {
+      text: "Coffee",
+      link: "#coffee",
+    },
+  ];
 
   return (
     <>
@@ -37,6 +55,28 @@ const Navbar = () => {
           </Toolbar>
         </Container>
       </AppBar>
+      <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
+        <Box
+          sx={{ width: 200 }}
+          role="presentation"
+          onClick={toggleDrawer(false)}
+        >
+          <List>
+            {drawerLinks.map((linkItem, index) => (
+              <ListItem key={index} disablePadding>
+                <ListItemButton
+                  component="a"
+                  href={linkItem.link}
+                  onClick={toggleDrawer(false)}
+                  aria-label={`Navigate to ${linkItem.text}`}
+                >
+                  <ListItemText primary={linkItem.text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Drawer>
     </>
   );
 };
